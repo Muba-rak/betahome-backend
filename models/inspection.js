@@ -23,7 +23,7 @@ const inspectionSchema = new mongoose.Schema(
       required: true,
     },
     inspectionDate: {
-      type: String,
+      type: Date,
       required: true,
     },
     inspectionTime: {
