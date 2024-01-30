@@ -55,7 +55,7 @@ const handleLogin = async (req, res) => {
     // compare password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ err: "email or password do not match" });
+      return res.status(400).json({ err: "Email or Password is Incorrect" });
     }
 
     //genrate token -
