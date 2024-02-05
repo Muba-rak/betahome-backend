@@ -84,23 +84,20 @@ const handleAddProperty = async (req, res) => {
     res.status(400).json(error);
   }
 };
-//find, sort (latest ones first)
+//find, sort (latest ones first) //lag abu LAGOS, lagos LaGOs
 const handleGetAllProperties = async (req, res) => {
-  const { location, title, bedroom, type } = req.query;
+  const { location, type, bedroom, title } = req.query;
   const queryObject = {};
   if (location) {
     queryObject.location = { $regex: location, $options: "i" };
   }
-  if (title) {
-    queryObject.title = { $regex: title, $options: "i" };
-  }
   if (type) {
-    queryObject.propertyType = type;
+    queryObject.propertyType = { $regex: type, $options: "i" };
   }
   if (bedroom) {
     queryObject.bedroom = { $eq: Number(bedroom) };
   }
-  console.log(queryObject);
+  // console.log(queryObject);
   try {
     const properties = await Property.find(queryObject).sort("-createdAt");
     res.status(200).json({ success: true, properties });
@@ -166,7 +163,7 @@ const handleEditProperty = async (req, res) => {
     // Update fields
     existingProperty.title = title ?? existingProperty.title;
     existingProperty.location = location ?? existingProperty.location;
-    existingProperty.price = price ?? existingProperty.location;
+    existingProperty.price = price ?? existingProperty.price;
     existingProperty.propertyType =
       propertyType ?? existingProperty.propertyType;
     existingProperty.description = description ?? existingProperty.description;
