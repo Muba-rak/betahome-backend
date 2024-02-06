@@ -256,6 +256,23 @@ const handleDeleteProperty = async (req, res) => {
   }
 };
 
+const handleFeaturedProperties = async (req, res) => {
+  try {
+    const housedProperties = await Property.find({
+      propertyType: "house",
+    }).limit(3);
+    const landedProperties = await Property.find({
+      propertyType: "land",
+    }).limit(3);
+
+    const properties = [...housedProperties, ...landedProperties];
+    res.status(200).json({ success: true, properties });
+  } catch (error) {
+    console.log(error);
+    res.json(error);
+  }
+};
+
 module.exports = {
   handleAddProperty,
   handleGetAllProperties,
@@ -263,4 +280,5 @@ module.exports = {
   getASingleProperty,
   handleDeleteProperty,
   handleEditProperty,
+  handleFeaturedProperties,
 };
