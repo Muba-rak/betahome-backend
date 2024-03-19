@@ -24,7 +24,7 @@ app.use(cors());
 
 //route
 app.get("/", (req, res) => {
-  res.status(200).send("BETA HOME SERVER");
+  res.status(200).json({ success: true, message: "Beta Home Server" });
 });
 app.use("/api/v1", profileRouter);
 app.use("/api/v1", inspectionRouter);
